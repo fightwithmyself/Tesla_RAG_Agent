@@ -1,0 +1,52 @@
+# ===== 第三方框架（请按 README 自行 clone）=====
+# LLaMA-Factory 与 RAG-Retrieval 为上游开源仓库，本项目只改动了少量配置，
+# 相关配置已单独放在 configs/ 目录下，便于查看。
+/LLaMA-Factory-main/
+/RAG-Retrieval/
+
+# ===== MongoDB 安装包与数据 =====
+/mongodb-7.0.20/
+/data/mongodb/
+
+# ===== 模型权重 =====
+/models/
+*.safetensors
+*.bin
+*.gguf
+*.pt
+*.pth
+*.onnx
+
+# ===== 数据与索引产物 =====
+/data/Tesla_Manual.pdf
+/data/saved_images/
+/data/saved_index/
+/data/processed_docs/
+/data/summary_data/
+/data/rerank_data/
+/data/qa_pairs/
+*.pkl
+*.db
+
+# ===== 日志与临时文件 =====
+/log/
+*.log
+nohup.out
+
+# ===== 密钥与本地配置 =====
+.env
+config.ini
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ===== 编辑器与系统 =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

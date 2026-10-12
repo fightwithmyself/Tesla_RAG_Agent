@@ -1,0 +1,6 @@
+#model_name_or_path: /root/autodl-tmp/RAG/models/Qwen3-8B/
+model_name_or_path: /root/autodl-tmp/RAG/LLaMA-Factory-main/output/qwen3_lora_sft/ 
+adapter_name_or_path: saves/qwen3-8b/lora/sft/checkpoint-300/
+template: qwen3
+infer_backend: huggingface  # choices: [huggingface, vllm, sglang]
+trust_remote_code: true

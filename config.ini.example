@@ -1,0 +1,32 @@
+# 复制为 config.ini 后填入自己的配置，再 source config.ini
+
+# 切换虚拟环境
+source activate rag
+
+export PYTHONPATH=$PYTHONPATH:$PWD
+export HF_ENDPOINT=https://hf-mirror.com
+
+# 教师模型 / 离线清洗与造数使用的云端 API（豆包、DeepSeek、GPT 等 OpenAI 兼容服务）
+export DOUBAO_API_KEY="your-api-key-here"
+export DOUBAO_BASE_URL="https://ark.cn-beijing.volces.com/api/v3"
+export DOUBAO_MODEL_NAME="your-endpoint-or-model-name"
+
+# MongoDB（可选，默认 localhost:27017 / mydatabase）
+# export MONGO_HOST="localhost"
+# export MONGO_PORT="27017"
+# export MONGO_DB_NAME="mydatabase"
+
+# 启动语义切分服务（端口 6000）
+nohup python src/server/semantic_chunk.py > log/semantic_chunk.log 2>&1 &
+sleep 10
+
+# 启动生成服务：AWQ INT4 量化后的 Qwen3-8B，OpenAI 兼容接口（端口 8000）
+nohup vllm serve LLaMA-Factory-main/output/qwen3_lora_sft_int4 \
+  --max-model-len 8192 --gpu-memory-utilization 0.7 > log/qwen3-8b.log 2>&1 &
+sleep 10
+
+# 启动 MongoDB（dbpath / logpath 换成自己的绝对路径）
+mongodb-7.0.20/bin/mongod --port=27017 \
+  --dbpath=/path/to/data/mongodb/data \
+  --logpath=/path/to/data/mongodb/log/mongodb.log \
+  --bind_ip=0.0.0.0 --fork
